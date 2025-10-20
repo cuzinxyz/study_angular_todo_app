@@ -11,7 +11,7 @@ import { User } from '../../types/User';
 
 export class UserComponent {
   @Input() user!: User;
-  @Input() classNames?: string;
+  @Input() selected!: boolean;
   @Output() select = new EventEmitter<string|number>();
 
   get getUsername() {

@@ -5,7 +5,7 @@
     @for(user of users; track $index) {
     <li>
       <app-user
-        [classNames]="selectedUser?.id === user.id ? 'active' : ''"
+        [selected]="selectedUser?.id === user.id"
         [user]="user"
         (select)="onSelectUser($event)"
       >
