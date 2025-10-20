@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Task } from './task/task';
 import { NewTaskData, Task as TaskType } from '../../types/Task';
-import { DUMMY_TASKS } from '../../utils/dummy-tasks';
 import { NewTask } from './new-task/new-task';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -17,14 +17,19 @@ export class Tasks {
 
   isAddDialogOpen = false;
   isSavingTask = false;
-  tasks: TaskType[] = this.loadTasks();
+
+  private tasksService = inject(TasksService);
+
+  get allTasks() {
+    return this.tasksService.getTasks();
+  }
 
   get userTasks(): TaskType[] {
-    return this.tasks.filter((task) => task.userId === this.userId);
+    return this.tasksService.getUserTasks(this.userId);
   }
 
   removeTask(id: string | number) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasksService.removeTask(id);
   }
 
   openAddDialog() {
@@ -42,31 +47,11 @@ export class Tasks {
     this.isSavingTask = true;
 
     try {
-      const newTask = this.buildTaskFromData(data);
-      this.tasks = [newTask, ...this.tasks];
-
+      this.tasksService.storeTask(this.userId, data);
       this.isAddDialogOpen = false;
     } finally {
       this.isSavingTask = false;
-      this.saveTasks(this.tasks);
+      this.tasksService.saveTasks();
     }
-  }
-
-  private buildTaskFromData(data: NewTaskData): TaskType {
-    return {
-      id: new Date().getTime().toString(),
-      userId: this.userId,
-      title: data.title,
-      summary: data.summary,
-      dueDate: data.dueDate,
-    } as TaskType;
-  }
-
-  private saveTasks(tasks: TaskType[]) {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
-
-  private loadTasks() {
-    return JSON.parse(localStorage.getItem('tasks') ?? JSON.stringify(DUMMY_TASKS)) || [];
   }
 }
