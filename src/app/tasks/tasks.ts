@@ -18,7 +18,7 @@ export class Tasks {
   isAddDialogOpen = false;
   isSavingTask = false;
 
-  tasks: TaskType[] = DUMMY_TASKS;
+  tasks: TaskType[] = this.loadTasks();
 
   get userTasks(): TaskType[] {
     return this.tasks.filter((task) => task.userId === this.userId);
@@ -44,11 +44,12 @@ export class Tasks {
 
     try {
       const newTask = this.buildTaskFromData(data);
-      this.tasks = [...this.tasks, newTask];
+      this.tasks = [newTask, ...this.tasks];
 
       this.isAddDialogOpen = false;
     } finally {
       this.isSavingTask = false;
+      this.saveTasks(this.tasks);
     }
   }
 
@@ -60,5 +61,13 @@ export class Tasks {
       summary: data.summary,
       dueDate: data.dueDate,
     } as TaskType;
+  }
+
+  private saveTasks(tasks: TaskType[]) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+  private loadTasks() {
+    return JSON.parse(localStorage.getItem('tasks') ?? JSON.stringify(DUMMY_TASKS)) || [];
   }
 }

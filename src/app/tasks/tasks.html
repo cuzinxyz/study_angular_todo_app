@@ -15,11 +15,15 @@
     </menu>
   </header>
 
-  <ul>
-    @for (task of userTasks; track task.id) {
-      <li>
-        <app-task [task]="task" (complete)="removeTask($event)" />
-      </li>
+  <section>
+    @if (userTasks && userTasks.length > 0) {
+      <ul>
+        @for (task of userTasks; track task.id) {
+          <li>
+            <app-task [task]="task" (complete)="removeTask($event)" />
+          </li>
+        }
+      </ul>
     }
-  </ul>
+  </section>
 </section>

@@ -1,3 +1,11 @@
+:root{
+  --scroll-thumb: #cfcfcf;
+  --scroll-track: #f5f5f5;
+  --item-bg: #ffffff;
+  --item-border: #e7e7e7;
+  --radius: 8px;
+}
+
 main {
   width: 90%;
   max-width: 50rem;
@@ -5,6 +13,7 @@ main {
   display: grid;
   grid-auto-flow: row;
   gap: 2rem;
+  padding-bottom: 2rem;
 }
 
 #users {
@@ -14,11 +23,32 @@ main {
   display: flex;
   gap: 0.5rem;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+#users:focus{
+  outline: 2px solid rgba(0,0,0,0.06);
+  outline-offset: 2px;
+  border-radius: calc(var(--radius) + 2px);
+}
+
+#users::-webkit-scrollbar{ height:8px; }
+#users::-webkit-scrollbar-track{
+  background: var(--scroll-track);
+  border-radius:999px;
+}
+#users::-webkit-scrollbar-thumb{
+  background: var(--scroll-thumb);
+  border-radius:999px;
+}
+#users::-webkit-scrollbar-thumb:hover{
+  background: #bdbdbd;
 }
 
 #fallback {
-  font-weight: bold;
-  font-size: 1.15rem;
+  font-size: 0.9rem;
   margin: 0;
   text-align: center;
 }
@@ -34,7 +64,7 @@ main {
   }
 
   #fallback {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: left;
   }
 }
