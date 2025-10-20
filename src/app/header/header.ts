@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './header.html',
   styleUrls: ['./header.less'],
 })
-
 export class Header {}

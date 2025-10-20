@@ -1,31 +1,30 @@
 import { Component, signal } from '@angular/core';
-import { Header } from "./header/header";
+import { Header } from './header/header';
 import { UserComponent } from './user/user';
 import { DUMMY_USERS } from '../utils/dummy-users';
 import { User } from '../types/User';
-import { Tasks } from "./tasks/tasks";
-import { NgForOf } from '@angular/common';
+import { Tasks } from './tasks/tasks';
+import { Task as TaskType } from '../types/Task';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header, UserComponent, Tasks, NgForOf],
+  imports: [Header, UserComponent, Tasks],
   templateUrl: './app.html',
-  styleUrls: ['./app.less']
+  styleUrls: ['./app.less'],
 })
-
 export class App {
   protected readonly title = signal('story-stream');
-  // default to the first dummy user if available (safe for empty arrays)
-  selectedUserId?: string|number|null;
+
+  selectedUserId?: string | number | null;
   users: User[] = DUMMY_USERS;
-  tasks: any = [];
+  tasks: TaskType[] = [];
 
   get selectedUser() {
-    return this.users.find(user => user.id === this.selectedUserId) ?? undefined;
+    return this.users.find((user) => user.id === this.selectedUserId) ?? undefined;
   }
 
-  onSelectUser(id: string|number) {
+  onSelectUser(id: string | number) {
     this.selectedUserId = id;
   }
 }

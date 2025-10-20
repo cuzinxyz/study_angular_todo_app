@@ -1,4 +1,4 @@
-import { Task } from "../types/Task";
+import { Task } from '../types/Task';
 
 export const DUMMY_TASKS: Task[] = [
   {

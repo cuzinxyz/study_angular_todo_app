@@ -8,11 +8,10 @@ import { User } from '../../types/User';
   templateUrl: './user.html',
   styleUrls: ['./user.less'],
 })
-
 export class UserComponent {
   @Input() user!: User;
   @Input() selected!: boolean;
-  @Output() select = new EventEmitter<string|number>();
+  @Output() userSelected = new EventEmitter<string | number>();
 
   get getUsername() {
     return this.user.name;
@@ -23,6 +22,6 @@ export class UserComponent {
   }
 
   onSelectUser() {
-    this.select.emit(this.user.id);
+    this.userSelected.emit(this.user.id);
   }
 }
