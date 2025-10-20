@@ -17,7 +17,6 @@ export class Tasks {
 
   isAddDialogOpen = false;
   isSavingTask = false;
-
   tasks: TaskType[] = this.loadTasks();
 
   get userTasks(): TaskType[] {
