@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task as TaskType } from '../../../types/Task';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './task.html',
   styleUrl: './task.less',
 })
