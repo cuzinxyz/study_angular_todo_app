@@ -10,7 +10,6 @@ import { NewTaskData } from '../../../types/Task';
 })
 export class NewTask {
   @Input() isShowDialog!: boolean;
-  // If true the form is disabled (used to indicate saving/loading)
   @Input() isDisabled = false;
   @Output() cancelAdd = new EventEmitter<void>();
   @Output() taskCreated = new EventEmitter<NewTaskData>();
@@ -24,7 +23,7 @@ export class NewTask {
   }
 
   onSubmit() {
-    if (this.isDisabled) return; // prevent duplicate submits while saving
+    if (this.isDisabled) return;
 
     this.taskCreated.emit({
       title: this.enteredTitle,
